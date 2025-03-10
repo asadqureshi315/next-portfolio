@@ -1,101 +1,171 @@
-import Image from "next/image";
+"use client";
+import { useRef, useEffect } from "react";
+import Link from "next/link";
+import * as THREE from "three";
+import { ArrowBigRight, FanIcon, ShipWheel, User } from "lucide-react";
 
 export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+  const canvasRef = useRef(null);
+  const mouseRef = useRef(new THREE.Vector2());
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    const renderer = new THREE.WebGLRenderer({ canvas });
+    renderer.setClearColor(new THREE.Color(0x000000), 1.0);
+
+    const fov = 75;
+    const aspect = window.innerWidth / window.innerHeight;
+    const near = 0.1;
+    const far = 1000;
+    const camera = new THREE.PerspectiveCamera(fov, aspect, near, far);
+    camera.position.z = 100;
+
+    const scene = new THREE.Scene();
+
+    const starGeometry = new THREE.SphereGeometry(1, 24, 24);
+
+    const stars = new THREE.Group();
+
+    for (let i = 0; i < 4000; i++) {
+      // const hue = Math.random() * 360
+      // const saturation = Math.random() * 30 + 70
+      // const lightness = Math.random() * 20 + 40
+
+      const starMaterial = new THREE.MeshBasicMaterial({
+        color: new THREE.Color(0xffffff),
+        // color: new THREE.Color(`hsl(${hue}, ${saturation}%, ${lightness}%)`),
+      });
+
+      const star = new THREE.Mesh(starGeometry, starMaterial);
+
+      star.position.set(
+        Math.random() * window.innerWidth - window.innerWidth / 2,
+        Math.random() * window.innerHeight - window.innerHeight / 2,
+        Math.random() * 800 - 400
+      );
+
+      stars.add(star);
+    }
+
+    scene.add(stars);
+
+    const targetRotation = new THREE.Vector2();
+    const currentRotation = new THREE.Vector2();
+
+    const animate = () => {
+      requestAnimationFrame(animate);
+
+      currentRotation.lerp(targetRotation, 1);
+
+      stars.rotation.x = currentRotation.y;
+      stars.rotation.y = currentRotation.x;
+
+      renderer.render(scene, camera);
+    };
+
+    const resizeHandler = () => {
+      const pixelRatio = window.devicePixelRatio;
+      const width = window.innerWidth * pixelRatio;
+      const height = window.innerHeight * pixelRatio;
+
+      canvas.style.width = `${window.innerWidth}px`;
+      canvas.style.height = `${window.innerHeight}px`;
+
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+
+      renderer.setSize(width, height);
+      renderer.setPixelRatio(pixelRatio);
+    };
+
+    const mouseMoveHandler = (event: any) => {
+      mouseRef.current.x = (event.clientX / window.innerWidth) * 2 - 1;
+      mouseRef.current.y = -(event.clientY / window.innerHeight) * 2 + 1;
+
+      targetRotation.x = mouseRef.current.x * 1;
+      targetRotation.y = mouseRef.current.y * 1;
+    };
+
+    resizeHandler();
+    window.addEventListener("resize", resizeHandler);
+    window.addEventListener("mousemove", mouseMoveHandler);
+
+    animate();
+
+    return () => {
+      window.removeEventListener("resize", resizeHandler);
+      window.removeEventListener("mousemove", mouseMoveHandler);
+    };
+  }, []);
+  useEffect(() => {
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = "visible";
+    };
+  }, []);
+
+  return (
+    <div className=" h-full overflow-hidden">
+      <canvas
+        id="star-canvas"
+        ref={canvasRef}
+        style={
+          {
+            //   width: "100%",
+            //   height: "100%",
+            //   top: 0,
+            //   left: 0,
+            //   overflow: "hidden",
+          }
+        }
+        // className=" overflow-hidden"
+      />
+      <div className=" absolute top-28 left-5 md:top-36 md:left-10 lg:top-36 lg:left-16">
+        <div className=" flex">
+          <h1 className="barcode text-7xl font-medium md:text-8xl lg:text-9xl text-white">
+            Asad Qureshi
+          </h1>
+          <div className=" w-26 flex justify-center bg-black">
+            <div className="relative group w-16 h-16 md:w-24 md:h-24 mt-5">
+              <ShipWheel className="w-full h-full stroke-white stroke-[1.25px] transition-transform duration-500 group-hover:rotate-45" />
+
+              {/* Circular Links */}
+              <div className="absolute inset-0 flex items-center justify-center">
+                <Link
+                  href="/me"
+                  className="absolute text-white text-sm md:text-lg transition-opacity duration-500 opacity-0 group-hover:opacity-100 "
+                  style={{ transform: "translate(200%, -150%)" }} // Top
+                >
+                  <User className="hover:stroke-black hover:bg-white rounded-full m-1" />
+                </Link>
+                <Link
+                  href="/projects"
+                  className="absolute text-white text-sm md:text-lg transition-opacity duration-500 opacity-0 group-hover:opacity-100 hover:underline"
+                  style={{ transform: "translate(180%, 120%)" }} // Bottom
+                >
+                  <FanIcon className="hover:stroke-black hover:bg-white rounded-full m-1" />
+                </Link>
+              </div>
+            </div>
+          </div>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+
+        <hr className=" border-2" />
+        <div className=" flex justify-between my-3">
+          <span className=" text-lg md:text-3xl  text-white italic">
+            {" "}
+            &nbsp;FullStack
+          </span>
+          <ArrowBigRight />
+          <span className=" text-lg md:text-3xl  text-white italic">
+            {" "}
+            &nbsp;DevOps
+          </span>
+        </div>
+        <p className=" absolute text-white">
+          As engineers, we don’t say no—we find a way to make it happen.
+        </p>
+      </div>
     </div>
   );
 }
