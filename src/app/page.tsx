@@ -1,8 +1,14 @@
 "use client";
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useState } from "react";
 import Link from "next/link";
 import * as THREE from "three";
-import { ArrowBigRight, FanIcon, ShipWheel, User } from "lucide-react";
+import {
+  ArrowBigRight,
+  ArrowRight,
+  FanIcon,
+  ShipWheel,
+  User,
+} from "lucide-react";
 
 export default function Home() {
   const canvasRef = useRef(null);
@@ -23,11 +29,11 @@ export default function Home() {
 
     const scene = new THREE.Scene();
 
-    const starGeometry = new THREE.SphereGeometry(1, 24, 24);
+    const starGeometry = new THREE.SphereGeometry(0.3, 24, 24);
 
     const stars = new THREE.Group();
 
-    for (let i = 0; i < 4000; i++) {
+    for (let i = 0; i < 30000; i++) {
       // const hue = Math.random() * 360
       // const saturation = Math.random() * 30 + 70
       // const lightness = Math.random() * 20 + 40
@@ -89,7 +95,21 @@ export default function Home() {
 
     resizeHandler();
     window.addEventListener("resize", resizeHandler);
+    // window.addEventListener("mousemove", mouseMoveHandler);
+
+    const handleTouchMove = (event: TouchEvent) => {
+      if (event.touches.length > 0) {
+        const touch = event.touches[0]; // Get first touch point
+        mouseRef.current.x = (touch.clientX / window.innerWidth) * 2 - 1;
+        mouseRef.current.y = -(touch.clientY / window.innerHeight) * 2 + 1;
+
+        targetRotation.x = mouseRef.current.x * 1;
+        targetRotation.y = mouseRef.current.y * 1;
+      }
+    };
+
     window.addEventListener("mousemove", mouseMoveHandler);
+    window.addEventListener("touchmove", handleTouchMove, { passive: true });
 
     animate();
 
@@ -104,7 +124,7 @@ export default function Home() {
       document.body.style.overflow = "visible";
     };
   }, []);
-
+  const [isOpen, setIsOpen] = useState(true);
   return (
     <div className=" h-full overflow-hidden">
       <canvas
@@ -121,30 +141,41 @@ export default function Home() {
         }
         // className=" overflow-hidden"
       />
-      <div className=" absolute top-28 left-5 md:top-36 md:left-10 lg:top-36 lg:left-16">
+      <div className=" absolute top-28 left-5 md:top-36 md:left-10 lg:top-36 lg:left-16  mix-blend-difference">
         <div className=" flex">
           <h1 className="barcode text-7xl font-medium md:text-8xl lg:text-9xl text-white">
             Asad Qureshi
           </h1>
-          <div className=" w-26 flex justify-center bg-black">
-            <div className="relative group w-16 h-16 md:w-24 md:h-24 mt-5">
-              <ShipWheel className="w-full h-full stroke-white stroke-[1.25px] transition-transform duration-500 group-hover:rotate-45" />
+          <div className="w-26 flex justify-center">
+            <div
+              className="relative w-16 h-16 md:w-24 md:h-24 mt-5 cursor-pointer"
+              onClick={() => setIsOpen(!isOpen)} // Toggle visibility on click
+            >
+              <ShipWheel
+                className={`w-full h-full stroke-white stroke-[1.25px] transition-transform duration-500 cursor-pointer ${
+                  isOpen ? "rotate-45" : ""
+                }`}
+              />
 
               {/* Circular Links */}
               <div className="absolute inset-0 flex items-center justify-center">
                 <Link
                   href="/me"
-                  className="absolute text-white text-sm md:text-lg transition-opacity duration-500 opacity-0 group-hover:opacity-100 "
-                  style={{ transform: "translate(200%, -150%)" }} // Top
+                  className={`absolute text-white text-sm md:text-lg transition-opacity duration-500 ${
+                    isOpen ? "opacity-100" : "opacity-0"
+                  }`}
+                  style={{ transform: "translate(200%, -150%)" }}
                 >
-                  <User className="hover:stroke-black hover:bg-white rounded-full m-1" />
+                  <User className="hover:stroke-black hover:bg-white rounded-full  w-8 h-8" />
                 </Link>
                 <Link
                   href="/projects"
-                  className="absolute text-white text-sm md:text-lg transition-opacity duration-500 opacity-0 group-hover:opacity-100 hover:underline"
-                  style={{ transform: "translate(180%, 120%)" }} // Bottom
+                  className={`absolute text-white text-sm md:text-lg transition-opacity duration-500 ${
+                    isOpen ? "opacity-100" : "opacity-0"
+                  }`}
+                  style={{ transform: "translate(180%, 120%)" }}
                 >
-                  <FanIcon className="hover:stroke-black hover:bg-white rounded-full m-1" />
+                  <FanIcon className="hover:stroke-black hover:bg-white rounded-full  w-8 h-8" />
                 </Link>
               </div>
             </div>
@@ -157,7 +188,7 @@ export default function Home() {
             {" "}
             &nbsp;FullStack
           </span>
-          <ArrowBigRight />
+          <ArrowRight />
           <span className=" text-lg md:text-3xl  text-white italic">
             {" "}
             &nbsp;DevOps

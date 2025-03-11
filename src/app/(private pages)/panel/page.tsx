@@ -45,6 +45,7 @@ export default function Dashboard() {
   const [formData, setFormData] = useState<Project>({
     _id: "",
     name: "",
+    slug: "",
     description: "",
     techStack: "",
     duration: "",
@@ -73,6 +74,7 @@ export default function Dashboard() {
     setFormData({
       _id: "",
       name: "",
+      slug: "",
       description: "",
       techStack: "",
       duration: "",
@@ -263,7 +265,7 @@ export default function Dashboard() {
           setIsDialogOpen;
         }}
       >
-        <DialogContent className="sm:max-w-[500px]">
+        <DialogContent className="sm:max-w-[500px]  max-h-[500px] overflow-scroll">
           <DialogHeader>
             <DialogTitle>
               {currentProject ? "Edit Project" : "Add New Project"}
@@ -283,6 +285,16 @@ export default function Dashboard() {
                 value={formData.name}
                 onChange={handleProjectChange}
                 placeholder="Enter project name"
+              />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="name">Slug</Label>
+              <Input
+                id="slug"
+                name="slug"
+                value={formData.slug}
+                onChange={handleProjectChange}
+                placeholder="Enter project slug"
               />
             </div>
             <div className="space-y-2">
@@ -360,6 +372,7 @@ export default function Dashboard() {
 interface Project {
   _id: string;
   name: string;
+  slug: string;
   description: string;
   techStack: string;
   duration: string;

@@ -3,33 +3,31 @@ import Link from "next/link";
 import { ChevronLeft } from "lucide-react";
 import { notFound } from "next/navigation";
 import { Badge } from "@/components/ui/badge";
+import { getProject } from "@/actions/projectActions";
 
-type tParams = Promise<{ slug: string[] }>;
+type tParams = Promise<{ slug: string }>;
+
+interface Project {
+  _id: string;
+  name: string;
+  slug: string;
+  description: string;
+  techStack: string;
+  duration: string;
+  images: string[];
+}
 
 export default async function ProjectDetailPage({
   params,
 }: {
   params: tParams;
 }) {
-  const project = {
-    id: 1,
-    name: "E-Commerce Platform",
-    slug: "e-commerce",
-    description:
-      "A full-featured online store with cart, checkout, and payment processing.",
-    techStack: ["React", "Node.js", "MongoDB", "Stripe"],
-    duration: "2 Week",
-    images: [
-      "https://images.unsplash.com/photo-1736285034986-5be6ec8054b1?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    ],
-  };
+  const slug = (await params).slug;
 
+  const project = await getProject("slug", slug);
   if (!project) {
     notFound();
   }
-
-  const slug = (await params).slug;
-
   return (
     <div className="container py-12 mx-auto">
       <Link
@@ -49,7 +47,7 @@ export default async function ProjectDetailPage({
           <div className="mb-6">
             <h2 className="text-xl font-semibold mb-3">Technologies Used</h2>
             <div className="flex flex-wrap gap-2">
-              {project.techStack.map((tech) => (
+              {project.techStack.split(",").map((tech: any) => (
                 <Badge key={tech} className="px-3 py-1">
                   {tech}
                 </Badge>
@@ -71,7 +69,7 @@ export default async function ProjectDetailPage({
       <div className="mt-8">
         <h2 className="text-xl font-semibold mb-4">Project Gallery</h2>
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-          {project.images.map((image, index) => (
+          {project.images.map((image: string, index: number) => (
             <div
               key={index}
               className="relative h-48 rounded-lg overflow-hidden group"

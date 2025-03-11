@@ -29,7 +29,6 @@ export async function POST(request: Request) {
       ...user.toObject(),
       password: undefined,
     };
-    console.log(userWithoutPassword);
 
     return NextResponse.json({
       ok: true,

@@ -24,6 +24,7 @@ import { TabsContent } from "@/components/ui/tabs";
 interface Project {
   _id: string;
   name: string;
+  slug: string;
   description: string;
   techStack: string;
   duration: string;
@@ -66,9 +67,7 @@ export default function Panel_Project_Tab({
             <TableHeader>
               <TableRow>
                 <TableHead>Project Name</TableHead>
-                <TableHead className="hidden md:table-cell">
-                  Description
-                </TableHead>
+                <TableHead>Slug</TableHead>
                 <TableHead>Tech Stack</TableHead>
                 <TableHead>Duration</TableHead>
                 <TableHead className="w-[80px]">Actions</TableHead>
@@ -78,9 +77,7 @@ export default function Panel_Project_Tab({
               {projects.map((project: any) => (
                 <TableRow key={project._id}>
                   <TableCell className="font-medium">{project.name}</TableCell>
-                  <TableCell className="hidden md:table-cell">
-                    {project.description}
-                  </TableCell>
+                  <TableCell>{project.slug}</TableCell>
                   <TableCell>{project.techStack}</TableCell>
                   <TableCell>{project.duration}</TableCell>
                   <TableCell>

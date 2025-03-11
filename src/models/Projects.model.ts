@@ -3,6 +3,7 @@ import mongoose from "mongoose";
 const projectSchema = new mongoose.Schema(
   {
     name: { type: String, trim: true, required: true },
+    slug: { type: String, trim: true, required: true },
     description: { type: String, trim: true, required: true },
     techStack: { type: String, trim: true, required: true },
     duration: { type: String, trim: true, required: true },

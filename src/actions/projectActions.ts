@@ -13,6 +13,7 @@ import { v4 as uuidv4 } from "uuid";
 
 export const saveProject = async (formData: {
   name: string;
+  slug: string;
   description: string;
   techStack: string;
   duration: string;
@@ -20,10 +21,11 @@ export const saveProject = async (formData: {
 }) => {
   await connectToDatabase();
 
-  const { name, description, techStack, duration, images } = formData;
+  const { name, slug, description, techStack, duration, images } = formData;
 
   const newProject = await Project.create({
     name,
+    slug,
     description,
     techStack,
     duration,
@@ -31,6 +33,28 @@ export const saveProject = async (formData: {
   });
 
   return JSON.stringify(newProject);
+};
+
+export const getProject = async (field: string, value: string) => {
+  try {
+    await connectToDatabase();
+
+    const project = await Project.findOne({ [field]: value });
+    let signedUrls: string[] = [];
+    await Promise.all(
+      project.images.map(async (img: string) => {
+        const signedUrl = await getS3SignedUrl(img);
+        const url = signedUrl?.url ?? "";
+
+        signedUrls.push(url);
+      })
+    );
+    project.images = signedUrls;
+    return JSON.parse(JSON.stringify(project));
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
 };
 
 export const getProjects = async () => {
@@ -48,6 +72,7 @@ export const getProjects = async () => {
 export const updateProject = async (formData: {
   _id: string;
   name: string;
+  slug: string;
   description: string;
   techStack: string;
   duration: string;
@@ -55,10 +80,12 @@ export const updateProject = async (formData: {
 }) => {
   await connectToDatabase();
 
-  const { _id, name, description, techStack, duration, images } = formData;
+  const { _id, name, slug, description, techStack, duration, images } =
+    formData;
 
   const updatedProject = await Project.findByIdAndUpdate(_id, {
     name,
+    slug,
     description,
     techStack,
     duration,
