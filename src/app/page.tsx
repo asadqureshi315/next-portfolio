@@ -9,7 +9,8 @@ export default function Home() {
   const mouseRef = useRef(new THREE.Vector2());
 
   useEffect(() => {
-    const canvas = canvasRef.current;
+    const canvas = canvasRef.current as unknown as HTMLCanvasElement;
+    if (!canvas) return;
     const renderer = new THREE.WebGLRenderer({ canvas });
     renderer.setClearColor(new THREE.Color(0x000000), 1.0);
 

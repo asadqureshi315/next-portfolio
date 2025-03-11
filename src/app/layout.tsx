@@ -32,17 +32,17 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <SessionWrapper>
-          {/* <SidebarProvider className=" bg-black">
-            <SidebarWrapper /> */}
-          <main className=" w-full">
-            {/* <SidebarTrigger
+          <SidebarProvider className=" bg-black">
+            <SidebarWrapper />
+            <main className=" w-full">
+              {/* <SidebarTrigger
                 className=" text-white rounded-none"
                 id="sidebar"
               /> */}
-            {children}
-            <Toaster />
-          </main>
-          {/* </SidebarProvider> */}
+              {children}
+              <Toaster />
+            </main>
+          </SidebarProvider>
         </SessionWrapper>
       </body>
     </html>

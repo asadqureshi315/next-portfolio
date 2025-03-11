@@ -14,7 +14,23 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { TabsContent } from "@/components/ui/tabs";
 
-export default function About_Panel_Tab({ aboutMe, handleAboutMeChange }) {
+interface AboutMeState {
+  education: string;
+  experience: string;
+  techStack: string;
+}
+
+interface AboutPanelTabProps {
+  aboutMe: AboutMeState;
+  handleAboutMeChange: (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => void;
+}
+
+export default function About_Panel_Tab({
+  aboutMe,
+  handleAboutMeChange,
+}: AboutPanelTabProps) {
   return (
     <TabsContent value="about" className="space-y-6">
       <Card>

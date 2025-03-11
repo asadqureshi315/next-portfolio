@@ -21,12 +21,28 @@ import {
 
 import { TabsContent } from "@/components/ui/tabs";
 
+interface Project {
+  _id: string;
+  name: string;
+  description: string;
+  techStack: string;
+  duration: string;
+  images: string[];
+}
+
+interface ProjectPanelTabProps {
+  projects: Project[];
+  handleAddProject: any;
+  handleEditProject: any;
+  handleDeleteProject: any;
+}
+
 export default function Panel_Project_Tab({
   handleAddProject,
   handleEditProject,
   handleDeleteProject,
   projects,
-}) {
+}: ProjectPanelTabProps) {
   return (
     <TabsContent value="projects" className="space-y-6">
       <Card>
