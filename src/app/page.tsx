@@ -2,13 +2,11 @@
 import { useRef, useEffect, useState } from "react";
 import Link from "next/link";
 import * as THREE from "three";
-import {
-  ArrowBigRight,
-  ArrowRight,
-  FanIcon,
-  ShipWheel,
-  User,
-} from "lucide-react";
+import { LocateFixed } from "lucide-react";
+import Typewriter from "@/components/typewriter";
+import { Cinzel } from "next/font/google";
+
+const cinzel = Cinzel({ weight: "400", subsets: ["latin"] });
 
 export default function Home() {
   const canvasRef = useRef(null);
@@ -29,11 +27,11 @@ export default function Home() {
 
     const scene = new THREE.Scene();
 
-    const starGeometry = new THREE.SphereGeometry(0.3, 24, 24);
+    const starGeometry = new THREE.SphereGeometry(0.1, 24, 24);
 
     const stars = new THREE.Group();
 
-    for (let i = 0; i < 30000; i++) {
+    for (let i = 0; i < 50000; i++) {
       // const hue = Math.random() * 360
       // const saturation = Math.random() * 30 + 70
       // const lightness = Math.random() * 20 + 40
@@ -142,61 +140,50 @@ export default function Home() {
         // className=" overflow-hidden"
       />
       <div className=" absolute top-28 left-5 md:top-36 md:left-10 lg:top-36 lg:left-16  mix-blend-difference">
-        <div className=" flex">
-          <h1 className="barcode text-7xl font-medium md:text-8xl lg:text-9xl text-white">
-            Asad Qureshi
-          </h1>
-          <div className="w-26 flex justify-center">
-            <div
-              className="relative w-16 h-16 md:w-24 md:h-24 mt-5 cursor-pointer"
-              onClick={() => setIsOpen(!isOpen)} // Toggle visibility on click
-            >
-              <ShipWheel
-                className={`w-full h-full stroke-white stroke-[1.25px] transition-transform duration-500 cursor-pointer ${
-                  isOpen ? "rotate-45" : ""
-                }`}
-              />
+        <h1
+          className={` text-7xl font-medium md:text-8xl lg:text-9xl text-white`}
+        >
+          Asad Qureshi
+        </h1>
 
-              {/* Circular Links */}
-              <div className="absolute inset-0 flex items-center justify-center">
-                <Link
-                  href="/me"
-                  className={`absolute text-white text-sm md:text-lg transition-opacity duration-500 ${
-                    isOpen ? "opacity-100" : "opacity-0"
-                  }`}
-                  style={{ transform: "translate(200%, -150%)" }}
-                >
-                  <User className="hover:stroke-black hover:bg-white rounded-full  w-8 h-8" />
-                </Link>
-                <Link
-                  href="/projects"
-                  className={`absolute text-white text-sm md:text-lg transition-opacity duration-500 ${
-                    isOpen ? "opacity-100" : "opacity-0"
-                  }`}
-                  style={{ transform: "translate(180%, 120%)" }}
-                >
-                  <FanIcon className="hover:stroke-black hover:bg-white rounded-full  w-8 h-8" />
-                </Link>
-              </div>
-            </div>
+        <div className=" flex justify-between my-3">
+          <Typewriter texts={["FullStack & DevOps", "Coder & Engineer", ""]} />
+        </div>
+        {/* <p className=" absolute text-white">
+          As engineers, we don’t say no—we find a way to make it happen.
+        </p> */}
+      </div>
+      <div className="absolute right-0 bottom-0 md:right-5 md:bottom-5">
+        <div
+          className=" w-16 h-16 md:w-24 md:h-24 mt-5"
+          // onClick={() => setIsOpen(!isOpen)} // Toggle visibility on click
+        >
+          <LocateFixed
+            className={`w-full h-full stroke-white stroke-1 transition-transform duration-500 cursor-pointer ${
+              !isOpen ? "rotate-45" : ""
+            }`}
+          />
+          <div className="absolute inset-0 flex items-center justify-center">
+            <Link
+              href="/projects"
+              className={`absolute text-white text-sm md:text-lg transition-opacity duration-500 ${
+                isOpen ? "opacity-100" : "opacity-0"
+              }`}
+              style={{ transform: "translate(0%, -180%)" }}
+            >
+              PROJECTS
+            </Link>
+            <Link
+              href="/me"
+              className={`absolute text-white text-sm md:text-lg transition-opacity duration-500 ${
+                isOpen ? "opacity-100" : "opacity-0"
+              }`}
+              style={{ transform: "translate(-250%, 30%)" }}
+            >
+              ME
+            </Link>
           </div>
         </div>
-
-        <hr className=" border-2" />
-        <div className=" flex justify-between my-3">
-          <span className=" text-lg md:text-3xl  text-white italic">
-            {" "}
-            &nbsp;FullStack
-          </span>
-          <ArrowRight />
-          <span className=" text-lg md:text-3xl  text-white italic">
-            {" "}
-            &nbsp;DevOps
-          </span>
-        </div>
-        <p className=" absolute text-white">
-          As engineers, we don’t say no—we find a way to make it happen.
-        </p>
       </div>
     </div>
   );

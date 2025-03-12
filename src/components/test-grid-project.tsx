@@ -81,27 +81,19 @@ const projects = [
 ];
 
 export default function Projects() {
-  // const [projects, setProjects] = useState<Project[]>([]);
+  // const [projects, setProjects] = useState<ProjectProps[]>([]);
 
   // useEffect(() => {
   //   async function fetchProjects() {
   //     const prj = await getProjects();
-
-  //     const projectsWithUrls = await Promise.all(
-  //       prj.map(async (project: Project) => {
-  //         const signedUrls = await Promise.all(
-  //           project.images.map(async (fileName) => {
-  //             const response = await getS3SignedUrl(fileName);
-  //             return response?.url ?? "";
-  //           })
-  //         );
-
-  //         console.log("Signed URLs for project:", project.name, signedUrls);
-  //         return { ...project, images: signedUrls };
+  //     const projectWithUrls = await Promise.all(
+  //       prj.map(async (project: ProjectProps) => {
+  //         const signedUrl = await getS3SignedUrl(project.images[0]);
+  //         const url = signedUrl?.url ?? "";
+  //         return { ...project, images: url };
   //       })
   //     );
-
-  //     setProjects(projectsWithUrls);
+  //     setProjects(projectWithUrls);
   //   }
   //   fetchProjects();
   // }, []);

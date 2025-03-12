@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono, Tinos } from "next/font/google";
 import "./globals.css";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { Toaster } from "sonner";
@@ -16,6 +16,8 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+const tinos = Tinos({ weight: "400", subsets: ["latin"] });
+
 export const metadata: Metadata = {
   title: "Portfolio",
   description: "Asad Qureshi's Portfolio",
@@ -28,9 +30,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="dark">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
+      <body className={`${tinos.className} antialiased`}>
         <SessionWrapper>
           <SidebarProvider className=" bg-black">
             <SidebarWrapper />
