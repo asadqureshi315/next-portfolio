@@ -1,5 +1,8 @@
 import { motion } from "framer-motion";
+import { Merriweather } from "next/font/google";
 import { useState, useEffect } from "react";
+
+const playFair = Merriweather({ weight: "400", subsets: ["latin"] });
 
 interface TypewriterProps {
   texts: string[];
@@ -48,7 +51,7 @@ export default function Typewriter({
 
   return (
     <motion.p
-      className="text-2xl md:text-6xl font-mono"
+      className={` ${playFair.className} text-2xl md:text-6xl font-mono`}
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5 }}

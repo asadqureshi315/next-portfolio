@@ -30,9 +30,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="dark">
-      <body className={`${tinos.className} antialiased`}>
+      <body className={`${geistMono.style} ${geistSans.style} antialiased`}>
         <SessionWrapper>
-          <SidebarProvider className=" bg-black">
+          <SidebarProvider className=" bg-gray-950">
             <SidebarWrapper />
             <main className=" w-full">
               {/* <SidebarTrigger

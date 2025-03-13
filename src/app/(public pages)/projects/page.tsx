@@ -3,6 +3,8 @@
 import { Suspense, useEffect, useState } from "react";
 import ProjectsParallaxClient from "@/components/project/projects-parallax-client";
 import BackButton from "@/components/project/back-button";
+import { Merriweather } from "next/font/google";
+const playFair = Merriweather({ weight: "400", subsets: ["latin"] });
 
 export default function ProjectsPage() {
   // Fetch projects data with caching
@@ -13,13 +15,11 @@ export default function ProjectsPage() {
     async function fetchProjects() {
       try {
         const response = await fetch("/api/projects", { method: "GET" });
-
         if (!response.ok) {
           throw new Error("Failed to fetch projects");
         }
-
-        const data = await response.json(); // ✅ Extract JSON
-        setProjects(data.projects); // ✅ Access projects correctly
+        const data = await response.json();
+        setProjects(data.projects);
       } catch (error) {
         console.error("Error fetching projects:", error);
       } finally {
@@ -29,14 +29,13 @@ export default function ProjectsPage() {
 
     fetchProjects();
   }, []);
-  console.log(projects);
   return (
     <div id="projects-showcase">
       {/* Add page heading */}
       <header className="page-header">
         <BackButton />
         <div className="title-container">
-          <h1 className="page-title">Projects</h1>
+          <h1 className={`page-title ${playFair.className}`}>Projects</h1>
           <div className="title-underline" />
         </div>
       </header>

@@ -4,18 +4,9 @@ import { ChevronLeft } from "lucide-react";
 import { notFound } from "next/navigation";
 import { Badge } from "@/components/ui/badge";
 import { getProject } from "@/actions/projectActions";
+import ImageLightbox from "@/components/project/image-lightbox";
 
 type tParams = Promise<{ slug: string }>;
-
-interface Project {
-  _id: string;
-  name: string;
-  slug: string;
-  description: string;
-  techStack: string;
-  duration: string;
-  images: string[];
-}
 
 export default async function ProjectDetailPage({
   params,
@@ -24,7 +15,17 @@ export default async function ProjectDetailPage({
 }) {
   const slug = (await params).slug;
 
-  const project = await getProject("slug", slug);
+  const response = await fetch(
+    `${process.env.NEXT_PUBLIC_APP_URL}/api/projects/${slug}`,
+    { method: "GET" }
+  );
+  if (!response.ok) {
+    throw new Error("Failed to fetch projects");
+  }
+  const data = await response.json();
+  const project = data.project;
+
+  // const project = await getProject("slug", slug);
   if (!project) {
     notFound();
   }
@@ -38,12 +39,20 @@ export default async function ProjectDetailPage({
         Back to Projects
       </Link>
 
-      <h1 className="text-4xl font-bold mb-2">{slug}</h1>
+      <h1 className="text-4xl font-bold mb-2">{project.name}</h1>
+      <p className="text-muted-foreground mb-2">{project.at}</p>
       <p className="text-muted-foreground mb-6">{project.duration}</p>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
         <div>
-          <p className="mb-6">{project.description}</p>
+          <div className="mb-6">
+            {project.description
+              .split(">")
+              .filter((txt: string) => txt.trim() !== "") // Remove empty items
+              .map((txt: string, idx: number) => (
+                <li key={idx}>{txt.trim()}</li> // Trim extra spaces
+              ))}
+          </div>
           <div className="mb-6">
             <h2 className="text-xl font-semibold mb-3">Technologies Used</h2>
             <div className="flex flex-wrap gap-2">
@@ -57,11 +66,13 @@ export default async function ProjectDetailPage({
         </div>
 
         <div className="relative h-[300px] rounded-lg overflow-hidden">
-          <Image
-            src={project.images[0] || "/placeholder.svg"}
+          <ImageLightbox
+            images={project.images}
+            // src={project.images[0] || "/placeholder.svg"}
             alt={project.name}
-            fill
-            className="object-cover"
+            initialIndex={0}
+            className="h-[300px]"
+            imageClassName="hover:scale-105"
           />
         </div>
       </div>
@@ -74,11 +85,14 @@ export default async function ProjectDetailPage({
               key={index}
               className="relative h-48 rounded-lg overflow-hidden group"
             >
-              <Image
-                src={image || "/placeholder.svg"}
+              <ImageLightbox
+                images={project.images}
+                key={index}
                 alt={`${project.name} image ${index + 1}`}
-                fill
-                className="object-cover group-hover:scale-110 transition-transform duration-300"
+                initialIndex={index}
+                className="h-48"
+                imageClassName="group-hover:scale-110"
+                showOverlay
               />
             </div>
           ))}

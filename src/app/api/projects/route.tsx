@@ -4,32 +4,19 @@ import { Project } from "@/models/Projects.model";
 
 import { NextResponse } from "next/server";
 
-interface ProjectType {
-  _id: string;
-  name: string;
-  description: string;
-  techStack: string;
-  duration: string;
-  images: string[];
-}
-
 export async function GET(request: Request) {
   try {
     await connectToDatabase();
-    const projects = await Project.find()
-      .sort({ name: -1 })
-      .lean<ProjectType[]>();
-
-    // ✅ Ensure project.images[0] exists before fetching signed URL
+    const projects = await Project.find().sort({ name: -1 }).lean<Project[]>();
     const projectWithUrls = await Promise.all(
-      projects.map(async (project: ProjectType) => {
+      projects.map(async (project: Project) => {
         const signedUrl =
           project.images?.length > 0
             ? await getS3SignedUrl(project.images[0])
             : null;
         const url = signedUrl?.url ?? "";
 
-        return { ...project, images: url }; // ✅ Properly override images
+        return { ...project, images: [url] };
       })
     );
 

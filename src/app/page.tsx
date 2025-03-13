@@ -141,7 +141,7 @@ export default function Home() {
       />
       <div className=" absolute top-28 left-5 md:top-36 md:left-10 lg:top-36 lg:left-16  mix-blend-difference">
         <h1
-          className={` text-7xl font-medium md:text-8xl lg:text-9xl text-white`}
+          className={` ${cinzel.className} text-7xl font-medium md:text-8xl lg:text-9xl text-white`}
         >
           Asad Qureshi
         </h1>

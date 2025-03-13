@@ -1,28 +1,10 @@
 "use client";
 
 import { forwardRef, JSX } from "react";
-import {
-  Code,
-  ExternalLink,
-  Github,
-  Layers,
-  Monitor,
-  Palette,
-} from "lucide-react";
 import type React from "react";
 import Image from "next/image";
-
-interface Project {
-  id: number;
-  name: string;
-  description: string;
-  techStack: string;
-  type: string;
-  images: string;
-  slug: string;
-  githubUrl: string;
-  demoUrl: string;
-}
+import DynamicIcon from "../dynamic-icon";
+import dynamicIconImports from "lucide-react/dynamicIconImports";
 
 const handleLinkClick = (e: React.MouseEvent) => {
   e.stopPropagation();
@@ -39,17 +21,22 @@ const ProjectCard = forwardRef<HTMLDivElement, ProjectCardProps>(
         <div ref={ref} className="project-card">
           <div className="project-image-container">
             <img
-              src={project.images || ""}
+              src={project.images[0] || ""}
               alt={project.name}
               className="project-image"
             />
           </div>
           <div className="project-content">
             <div className="project-header">
+              <div className="project-icon">
+                <DynamicIcon
+                  name={project.icon as keyof typeof dynamicIconImports}
+                />
+              </div>
               <h3 className="project-title">{project.name}</h3>
             </div>
             <p className="project-description truncate w-[ch_200]">
-              {project.description}
+              {project.description.slice(1)}
             </p>
             <div className="project-techStack">
               {project.techStack.split(",").map((tech, index) => (
@@ -60,19 +47,19 @@ const ProjectCard = forwardRef<HTMLDivElement, ProjectCardProps>(
             </div>
             {/* <div className="project-links">
               <a
-                href={project.githubUrl}
+                href={project.github}
                 className="project-action-link"
                 onClick={handleLinkClick}
-                aria-label={`View code for ${project.title}`}
+                aria-label={`View code for ${project.name}`}
               >
                 <Github size={16} />
                 <span>View Code</span>
               </a>
               <a
-                href={project.demoUrl}
+                href={project.live}
                 className="project-action-link"
                 onClick={handleLinkClick}
-                aria-label={`View live demo for ${project.title}`}
+                aria-label={`View live demo for ${project.name}`}
               >
                 <ExternalLink size={16} />
                 <span>Live Demo</span>
@@ -165,7 +152,6 @@ const ProjectCard = forwardRef<HTMLDivElement, ProjectCardProps>(
           }
 
           .project-title {
-            font-family: "Inter", sans-serif;
             font-size: 28px;
             font-weight: 700;
             margin: 0;

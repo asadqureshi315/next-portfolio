@@ -46,9 +46,13 @@ export default function Dashboard() {
     _id: "",
     name: "",
     slug: "",
+    at: "",
     description: "",
     techStack: "",
     duration: "",
+    github: "",
+    live: "",
+    icon: "",
     images: [],
   });
 
@@ -75,9 +79,13 @@ export default function Dashboard() {
       _id: "",
       name: "",
       slug: "",
+      at: "",
       description: "",
       techStack: "",
       duration: "",
+      github: "",
+      live: "",
+      icon: "",
       images: [],
     });
     setIsDialogOpen(true);
@@ -298,6 +306,16 @@ export default function Dashboard() {
               />
             </div>
             <div className="space-y-2">
+              <Label htmlFor="name">At</Label>
+              <Input
+                id="at"
+                name="at"
+                value={formData.at}
+                onChange={handleProjectChange}
+                placeholder="Where you worked on project"
+              />
+            </div>
+            <div className="space-y-2">
               <Label htmlFor="description">Description</Label>
               <Textarea
                 id="description"
@@ -306,6 +324,7 @@ export default function Dashboard() {
                 onChange={handleProjectChange}
                 placeholder="Describe your project"
                 className="min-h-[80px]"
+                rows={8}
               />
             </div>
             <div className="space-y-2">
@@ -326,6 +345,34 @@ export default function Dashboard() {
                 value={formData.duration}
                 onChange={handleProjectChange}
                 placeholder="e.g. 2 weeks, 3 months"
+              />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="github">Github Link</Label>
+              <Input
+                id="github"
+                name="github"
+                value={formData.github}
+                onChange={handleProjectChange}
+              />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="live">Live Link</Label>
+              <Input
+                id="live"
+                name="live"
+                value={formData.live}
+                onChange={handleProjectChange}
+              />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="Icon">Icon</Label>
+              <Input
+                id="icon"
+                name="icon"
+                value={formData.icon}
+                onChange={handleProjectChange}
+                placeholder="icon name from lucide"
               />
             </div>
             <div className="space-y-2">
@@ -373,9 +420,13 @@ interface Project {
   _id: string;
   name: string;
   slug: string;
+  at: string;
   description: string;
   techStack: string;
   duration: string;
+  github: string;
+  live: string;
+  icon: string;
   images: string[];
 }
 

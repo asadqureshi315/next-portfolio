@@ -11,24 +11,32 @@ import {
 import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
 import { v4 as uuidv4 } from "uuid";
 
-export const saveProject = async (formData: {
-  name: string;
-  slug: string;
-  description: string;
-  techStack: string;
-  duration: string;
-  images: string[];
-}) => {
+export const saveProject = async (formData: Project) => {
   await connectToDatabase();
 
-  const { name, slug, description, techStack, duration, images } = formData;
+  const {
+    name,
+    slug,
+    at,
+    description,
+    techStack,
+    duration,
+    github,
+    live,
+    icon,
+    images,
+  } = formData;
 
   const newProject = await Project.create({
     name,
     slug,
+    at,
     description,
     techStack,
     duration,
+    github,
+    live,
+    icon,
     images,
   });
 
@@ -69,26 +77,33 @@ export const getProjects = async () => {
   }
 };
 
-export const updateProject = async (formData: {
-  _id: string;
-  name: string;
-  slug: string;
-  description: string;
-  techStack: string;
-  duration: string;
-  images: string[];
-}) => {
+export const updateProject = async (formData: Project) => {
   await connectToDatabase();
 
-  const { _id, name, slug, description, techStack, duration, images } =
-    formData;
+  const {
+    _id,
+    name,
+    slug,
+    at,
+    description,
+    techStack,
+    duration,
+    github,
+    live,
+    images,
+    icon,
+  } = formData;
 
   const updatedProject = await Project.findByIdAndUpdate(_id, {
     name,
     slug,
+    at,
     description,
     techStack,
     duration,
+    github,
+    live,
+    icon,
     images,
   });
   return JSON.stringify(updatedProject);

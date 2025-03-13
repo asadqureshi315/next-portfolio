@@ -9,18 +9,6 @@ import {
 import { useRef } from "react";
 import ProjectCard from "./project-card";
 
-interface Project {
-  id: number;
-  name: string;
-  description: string;
-  techStack: string;
-  type: string;
-  images: string;
-  slug: string;
-  githubUrl: string;
-  demoUrl: string;
-}
-
 function useParallax(value: MotionValue<number>, distance: number) {
   return useTransform(value, [0, 1], [-distance, distance]);
 }
