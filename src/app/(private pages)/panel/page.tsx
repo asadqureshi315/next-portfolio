@@ -31,12 +31,28 @@ import axios from "axios";
 import Image from "next/image";
 import Panel_Project_Tab from "@/components/panel-projects-list";
 import About_Panel_Tab from "@/components/panel-about-tab";
+import { updateMe, getAboutMe } from "@/actions/aboutMeActions";
 
 export default function Dashboard() {
-  const [aboutMe, setAboutMe] = useState({
-    education: "",
-    experience: "",
-    techStack: "",
+  const [aboutMe, setAboutMe] = useState<AboutMe>({
+    _id: "",
+    title: "",
+    subTitle: "",
+    description: "",
+    experience: [{ at: "", description: "", duration: "" }],
+    resume: "",
+    email: "",
+    github: "",
+    linkedIn: "",
+    leetcode: "",
+    techNodes: {
+      nodes: [{ id: "", category: "", description: "" }],
+      links: [{ source: "", target: "" }],
+    },
+    radar: {
+      fullstack: [{ category: "", value: "" }],
+      devops: [{ category: "", value: "" }],
+    },
   });
   const [projects, setProjects] = useState<Project[]>([]);
 
@@ -226,6 +242,14 @@ export default function Dashboard() {
     }
     setIsDialogOpen(false);
   };
+  const handleSaveMe = async () => {
+    await updateMe(aboutMe);
+  };
+
+  async function getMe() {
+    const res = await JSON.parse(await getAboutMe());
+    setAboutMe(res);
+  }
 
   async function getProjectData() {
     const prj = await getProjects();
@@ -233,6 +257,7 @@ export default function Dashboard() {
   }
 
   useEffect(() => {
+    getMe();
     getProjectData();
   }, []);
 
@@ -256,6 +281,8 @@ export default function Dashboard() {
         <About_Panel_Tab
           handleAboutMeChange={handleAboutMeChange}
           aboutMe={aboutMe}
+          setAboutMe={setAboutMe}
+          saveMe={handleSaveMe}
         />
 
         <Panel_Project_Tab
@@ -416,19 +443,19 @@ export default function Dashboard() {
 }
 
 // Types
-interface Project {
-  _id: string;
-  name: string;
-  slug: string;
-  at: string;
-  description: string;
-  techStack: string;
-  duration: string;
-  github: string;
-  live: string;
-  icon: string;
-  images: string[];
-}
+// interface Project {
+//   _id: string;
+//   name: string;
+//   slug: string;
+//   at: string;
+//   description: string;
+//   techStack: string;
+//   duration: string;
+//   github: string;
+//   live: string;
+//   icon: string;
+//   images: string[];
+// }
 
 interface Preview {
   fileName: string;

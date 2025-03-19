@@ -4,9 +4,10 @@ import Link from "next/link";
 import * as THREE from "three";
 import { LocateFixed } from "lucide-react";
 import Typewriter from "@/components/typewriter";
-import { Cinzel } from "next/font/google";
+import { Cinzel, Merriweather } from "next/font/google";
 
 const cinzel = Cinzel({ weight: "400", subsets: ["latin"] });
+const playFair = Merriweather({ weight: "400", subsets: ["latin"] });
 
 export default function Home() {
   const canvasRef = useRef(null);
@@ -163,7 +164,9 @@ export default function Home() {
               !isOpen ? "rotate-45" : ""
             }`}
           />
-          <div className="absolute inset-0 flex items-center justify-center">
+          <div
+            className={`absolute inset-0 flex items-center justify-centerm ${playFair.className}`}
+          >
             <Link
               href="/projects"
               className={`absolute text-white text-sm md:text-lg transition-opacity duration-500 ${
@@ -178,7 +181,7 @@ export default function Home() {
               className={`absolute text-white text-sm md:text-lg transition-opacity duration-500 ${
                 isOpen ? "opacity-100" : "opacity-0"
               }`}
-              style={{ transform: "translate(-250%, 30%)" }}
+              style={{ transform: "translate(-100%, 30%)" }}
             >
               ME
             </Link>

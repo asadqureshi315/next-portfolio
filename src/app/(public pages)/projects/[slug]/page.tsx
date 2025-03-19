@@ -30,7 +30,7 @@ export default async function ProjectDetailPage({
     notFound();
   }
   return (
-    <div className="container py-12 mx-auto">
+    <div className="container !px-5 py-12 mx-auto">
       <Link
         href="/projects"
         className="inline-flex items-center mb-6 text-sm hover:text-primary transition-colors"

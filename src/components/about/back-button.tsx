@@ -1,49 +1,12 @@
-"use client";
-
-import { Suspense, useEffect, useState } from "react";
-import ProjectsParallaxClient from "@/components/project/projects-parallax-client";
-import BackButton from "@/components/project/back-button";
-import { Merriweather } from "next/font/google";
-const playFair = Merriweather({ weight: "400", subsets: ["latin"] });
-
-export default function ProjectsPage() {
-  // Fetch projects data with caching
-  const [projects, setProjects] = useState([]);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    async function fetchProjects() {
-      try {
-        const response = await fetch("/api/projects", { method: "GET" });
-        if (!response.ok) {
-          throw new Error("Failed to fetch projects");
-        }
-        const data = await response.json();
-        setProjects(data.projects);
-      } catch (error) {
-        console.error("Error fetching projects:", error);
-      } finally {
-        setLoading(false);
-      }
-    }
-
-    fetchProjects();
-  }, []);
+export default function BackButton() {
   return (
-    <div id="projects-showcase">
-      {/* Add page heading */}
+    <div>
       <header className="page-header">
         <BackButton />
         <div className="title-container">
-          <h1 className={`page-title ${playFair.className}`}>Projects</h1>
           <div className="title-underline" />
         </div>
       </header>
-
-      <Suspense fallback={<div className="loading">Loading projects...</div>}>
-        <ProjectsParallaxClient projects={projects} />
-      </Suspense>
-
       <style jsx global>{`
         html {
           scroll-snap-type: y mandatory;
