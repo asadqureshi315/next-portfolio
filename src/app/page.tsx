@@ -129,16 +129,14 @@ export default function Home() {
       <canvas
         id="star-canvas"
         ref={canvasRef}
-        style={
-          {
-            //   width: "100%",
-            //   height: "100%",
-            //   top: 0,
-            //   left: 0,
-            //   overflow: "hidden",
-          }
-        }
-        // className=" overflow-hidden"
+        style={{
+          width: "100%",
+          height: "100%",
+          top: 0,
+          left: 0,
+          overflow: "hidden",
+        }}
+        className=" overflow-hidden"
       />
       <div className=" absolute top-28 left-5 md:top-36 md:left-10 lg:top-36 lg:left-16  mix-blend-difference">
         <h1
@@ -156,8 +154,8 @@ export default function Home() {
       </div>
       <div className="absolute right-0 bottom-0 md:right-5 md:bottom-5">
         <div
-          className=" w-16 h-16 md:w-24 md:h-24 mt-5"
-          // onClick={() => setIsOpen(!isOpen)} // Toggle visibility on click
+          className=" w-16 h-16 md:w-24 md:h-24 mt-5 hover:cursor-pointer"
+          onClick={() => setIsOpen(!isOpen)} // Toggle visibility on click
         >
           <LocateFixed
             className={`w-full h-full stroke-white stroke-1 transition-transform duration-500 cursor-pointer ${

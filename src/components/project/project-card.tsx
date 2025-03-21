@@ -17,7 +17,10 @@ interface ProjectCardProps {
 const ProjectCard = forwardRef<HTMLDivElement, ProjectCardProps>(
   ({ project }, ref) => {
     return (
-      <a href={`/projects/${project.slug}`} className="project-link-wrapper">
+      <a
+        href={`/projects/${project.slug}`}
+        className="project-link-wrapper bg-gray-100 text-black rounded-2xl"
+      >
         <div ref={ref} className="project-card">
           <div className="project-image-container">
             <img
@@ -33,9 +36,9 @@ const ProjectCard = forwardRef<HTMLDivElement, ProjectCardProps>(
                   name={project.icon as keyof typeof dynamicIconImports}
                 />
               </div>
-              <h3 className="project-title">{project.name}</h3>
+              <h3 className="project-title text-gray-900">{project.name}</h3>
             </div>
-            <p className="project-description truncate w-[ch_200]">
+            <p className="project-description truncate w-[ch_200] text-gray-900">
               {project.description.slice(1)}
             </p>
             <div className="project-techStack">
@@ -148,20 +151,18 @@ const ProjectCard = forwardRef<HTMLDivElement, ProjectCardProps>(
             width: 64px;
             height: 64px;
             border-radius: 12px;
-            background: rgba(255, 255, 255, 0.05);
+            background: rgba(0, 0, 0, 1);
           }
 
           .project-title {
             font-size: 28px;
             font-weight: 700;
             margin: 0;
-            color: var(--white);
           }
 
           .project-description {
             font-size: 18px;
             line-height: 1.6;
-            color: var(--white-feint);
           }
 
           .project-techStack {
@@ -172,7 +173,7 @@ const ProjectCard = forwardRef<HTMLDivElement, ProjectCardProps>(
           }
 
           .project-tech-tag {
-            background: rgba(141, 240, 204, 0.1);
+            background: rgba(0, 0, 4, 1);
             color: var(--hue-6);
             padding: 6px 12px;
             border-radius: 20px;

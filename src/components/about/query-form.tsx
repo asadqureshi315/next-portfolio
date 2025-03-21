@@ -50,7 +50,7 @@ export default function ContactForm() {
 
   if (isSubmitted) {
     return (
-      <Card className="w-full max-w-md mx-auto">
+      <Card className="w-full max-w-md mx-auto shadow-2xl shadow-gray-800 border-none">
         <CardContent className="pt-6">
           <div className="flex flex-col items-center justify-center space-y-3 text-center">
             <CheckCircle className="h-12 w-12 text-green-500" />
@@ -58,10 +58,7 @@ export default function ContactForm() {
             <p className="text-muted-foreground">
               We'll get back to you as soon as possible.
             </p>
-            <Button
-              onClick={() => setIsSubmitted(false)}
-              className="mt-4 cursor-pointer"
-            >
+            <Button onClick={() => setIsSubmitted(false)} className="mt-4">
               Send another message
             </Button>
           </div>
@@ -71,7 +68,7 @@ export default function ContactForm() {
   }
 
   return (
-    <Card className="w-full max-w-md mx-auto">
+    <Card className="w-full max-w-md mx-auto shadow-2xl shadow-gray-800 border-none">
       <CardHeader>
         <CardTitle>Contact Us</CardTitle>
         <CardDescription>

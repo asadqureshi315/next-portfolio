@@ -33,7 +33,7 @@ export default function RootLayout({
     <html lang="en" className="dark">
       <body className={`${geistMono.style} ${geistSans.style} antialiased`}>
         <SessionWrapper>
-          <SidebarProvider className=" bg-gray-950">
+          <SidebarProvider className="">
             <SidebarWrapper />
             <main className=" w-full">
               {/* <SidebarTrigger

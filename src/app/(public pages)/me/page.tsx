@@ -7,7 +7,6 @@ import BackButton from "@/components/project/back-button";
 import { ArrowLeft, Briefcase, Github, Linkedin, Mail } from "lucide-react";
 import ContactForm from "@/components/about/query-form";
 import Image from "next/image";
-import Leetcode from "../../../assets/leetcode.png";
 
 export default async function AboutMe() {
   const me: AboutMe = await JSON.parse(await getAboutMe());
@@ -99,22 +98,22 @@ export default async function AboutMe() {
         <div className="relative border-l border-gray-700 pl-6">
           {me.experience.map((exp, index) => (
             <div key={index} className="mb-8 relative">
-              <div className="bg-[#212121] p-4 rounded-lg shadow-md">
+              <div className="bg-gray-200 p-4 rounded-lg shadow-md">
                 <div className="flex justify-between items-center">
                   <div className=" flex gap-3">
-                    <div className="bg-primary/10 p-2 rounded-full">
-                      <Briefcase className="h-4 w-4 text-primary" />
+                    <div className="bg-black p-2 rounded-full">
+                      <Briefcase className="h-4 w-4 text-white" />
                     </div>
-                    <h3 className="text-base md:text-lg font-semibold text-white whitespace-nowrap">
+                    <h3 className="text-base md:text-lg font-semibold text-gray-700 whitespace-nowrap">
                       {exp.at}
                     </h3>
                   </div>
-                  <span className="text-gray-400 text-xs sm:text-sm">
+                  <span className="text-gray-700 text-xs sm:text-sm">
                     {exp.duration}
                   </span>
                 </div>
 
-                <ul className="text-gray-300 list-disc pl-5 mt-2 space-y-1">
+                <ul className="text-gray-700 list-disc pl-5 mt-2 space-y-1">
                   {exp.description
                     .split(">")
                     .filter((itm) => itm.trim() !== "")
