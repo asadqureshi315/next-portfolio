@@ -39,23 +39,36 @@ export default async function ProjectDetailPage({
         Back to Projects
       </Link>
 
-      <h1 className="text-4xl font-bold mb-2">{project.name}</h1>
-      <p className="text-muted-foreground mb-2">{project.at}</p>
-      <p className="text-muted-foreground mb-6">{project.duration}</p>
+      <h1 className="text-xl sm:text-2xl lg:text-4xl font-bold mb-2">
+        {project.name}
+      </h1>
+      <p className="text-muted-foreground text-sm lg:text-base mb-2">
+        {project.at}
+      </p>
+      <p className="text-muted-foreground text-sm lg:text-base mb-6">
+        {project.duration}
+      </p>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
         <div>
-          <div className="mb-6">
-            {project.description
-              .split(">")
-              .filter((txt: string) => txt.trim() !== "") // Remove empty items
-              .map((txt: string, idx: number) => (
-                <li key={idx}>{txt.trim()}</li> // Trim extra spaces
-              ))}
+          <div className="mb-6 text-xs sm:text-sm lg:text-base">
+            <ul className="list-disc pl-4 sm:pl-3 lg:pl-2 space-y-1">
+              {project.description
+                .split(">")
+                .filter((txt: string) => txt.trim() !== "") // Remove empty items
+                .map((txt: string, idx: number) => (
+                  <li key={idx} className="leading-tight">
+                    {txt.trim()}
+                  </li> // Reduce spacing
+                ))}
+            </ul>
           </div>
+
           <div className="mb-6">
-            <h2 className="text-xl font-semibold mb-3">Technologies Used</h2>
-            <div className="flex flex-wrap gap-2">
+            <h2 className=" text-sm sm:text-base lg:text-xl font-semibold mb-3">
+              Technologies Used
+            </h2>
+            <div className=" text-sm sm:text-base lg:text-xl flex flex-wrap gap-2">
               {project.techStack.split(",").map((tech: any) => (
                 <Badge key={tech} className="px-3 py-1">
                   {tech}
@@ -78,7 +91,9 @@ export default async function ProjectDetailPage({
       </div>
 
       <div className="mt-8">
-        <h2 className="text-xl font-semibold mb-4">Project Gallery</h2>
+        <h2 className="text-sm sm:text-base lg:text-xl font-semibold mb-4">
+          Project Gallery
+        </h2>
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
           {project.images.map((image: string, index: number) => (
             <div

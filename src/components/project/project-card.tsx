@@ -34,11 +34,12 @@ const ProjectCard = forwardRef<HTMLDivElement, ProjectCardProps>(
               <div className="project-icon">
                 <DynamicIcon
                   name={project.icon as keyof typeof dynamicIconImports}
+                  className=" w-8 h-8 "
                 />
               </div>
               <h3 className="project-title text-gray-900">{project.name}</h3>
             </div>
-            <p className="project-description truncate w-[ch_200] text-gray-900">
+            <p className="project-description truncate w-[ch_200] text-gray-900 text-sm md:text-lg">
               {project.description.slice(1)}
             </p>
             <div className="project-techStack">
@@ -161,7 +162,7 @@ const ProjectCard = forwardRef<HTMLDivElement, ProjectCardProps>(
           }
 
           .project-description {
-            font-size: 18px;
+            // font-size: 18px;
             line-height: 1.6;
           }
 
@@ -225,10 +226,6 @@ const ProjectCard = forwardRef<HTMLDivElement, ProjectCardProps>(
             .project-title {
               font-size: 24px;
             }
-
-            .project-description {
-              font-size: 16px;
-            }
           }
 
           @media (max-width: 576px) {
@@ -238,12 +235,6 @@ const ProjectCard = forwardRef<HTMLDivElement, ProjectCardProps>(
 
             .project-content {
               padding: 20px;
-            }
-
-            .project-header {
-              flex-direction: column;
-              align-items: flex-start;
-              gap: 10px;
             }
 
             .project-icon {

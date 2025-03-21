@@ -66,7 +66,7 @@ const SphericalText: React.FC<SphericalTextProps> = ({ skills }) => {
           <Text
             key={i}
             position={positions[i]}
-            fontSize={0.1 * radius}
+            fontSize={0.15 * radius}
             color="white"
           >
             {text}

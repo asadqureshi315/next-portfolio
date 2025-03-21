@@ -31,7 +31,7 @@ export default async function AboutMe() {
           </p>
 
           {/* Description */}
-          <div className="text-gray-400 space-y-2">
+          <div className="text-gray-400 list-disc pl-4 sm:pl-3 lg:pl-2 space-y-2">
             {me.description
               .split(">")
               .filter((txt) => txt.trim() !== "")
@@ -42,48 +42,52 @@ export default async function AboutMe() {
 
           {/* Contact & Links */}
           <div className="flex flex-wrap items-center gap-4 mt-4">
-            <p className="flex items-center text-teal-500 gap-2">
-              {me.email}
-              <Mail />
-            </p>
-            <p className="flex items-center gap-2 text-blue-400">
-              <a href={me.linkedIn} target="_blank">
-                <Linkedin />
+            <div>
+              <p className="flex items-center text-teal-500 gap-2">
+                {me.email}
+                <Mail />
+              </p>
+            </div>
+            <div className=" flex gap-4">
+              <p className="flex items-center gap-2 text-blue-400">
+                <a href={me.linkedIn} target="_blank">
+                  <Linkedin />
+                </a>
+              </p>
+              <p className="flex items-center gap-2 text-white">
+                <a href={me.github} target="_blank">
+                  <Github />
+                </a>
+              </p>
+              <a href={me.leetcode} target="_blank" className=" -m-3">
+                <svg
+                  fill="#ffffff"
+                  width="81px"
+                  height="81px"
+                  viewBox="-12 -12 48.00 48.00"
+                  role="img"
+                  xmlns="http://www.w3.org/2000/svg"
+                  stroke="#ffffff"
+                  strokeWidth="0.00024000000000000003"
+                  className=" w-12 h-12 bg-black"
+                >
+                  <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
+                  <g
+                    id="SVGRepo_tracerCarrier"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    stroke="#CCCCCC"
+                    strokeWidth="0.048"
+                  ></g>
+                  <g id="SVGRepo_iconCarrier">
+                    <title>LeetCode icon</title>
+                    <path d="M16.102 17.93l-2.697 2.607c-.466.467-1.111.662-1.823.662s-1.357-.195-1.824-.662l-4.332-4.363c-.467-.467-.702-1.15-.702-1.863s.235-1.357.702-1.824l4.319-4.38c.467-.467 1.125-.645 1.837-.645s1.357.195 1.823.662l2.697 2.606c.514.515 1.365.497 1.9-.038.535-.536.553-1.387.039-1.901l-2.609-2.636a5.055 5.055 0 0 0-2.445-1.337l2.467-2.503c.516-.514.498-1.366-.037-1.901-.535-.535-1.387-.552-1.902-.038l-10.1 10.101c-.981.982-1.494 2.337-1.494 3.835 0 1.498.513 2.895 1.494 3.875l4.347 4.361c.981.979 2.337 1.452 3.834 1.452s2.853-.512 3.835-1.494l2.609-2.637c.514-.514.496-1.365-.039-1.9s-1.386-.553-1.899-.039zM20.811 13.01H10.666c-.702 0-1.27.604-1.27 1.346s.568 1.346 1.27 1.346h10.145c.701 0 1.27-.604 1.27-1.346s-.569-1.346-1.27-1.346z"></path>
+                  </g>
+                </svg>
+                {/* <img alt="leetcode-icon" src="/leetcode.png" /> */}
+                {/* Leetcode */}
               </a>
-            </p>
-            <p className="flex items-center gap-2 text-white">
-              <a href={me.github} target="_blank">
-                <Github />
-              </a>
-            </p>
-            <a href={me.leetcode} target="_blank" className=" -m-3">
-              <svg
-                fill="#ffffff"
-                width="81px"
-                height="81px"
-                viewBox="-12 -12 48.00 48.00"
-                role="img"
-                xmlns="http://www.w3.org/2000/svg"
-                stroke="#ffffff"
-                strokeWidth="0.00024000000000000003"
-                className=" w-12 h-12 bg-black"
-              >
-                <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
-                <g
-                  id="SVGRepo_tracerCarrier"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  stroke="#CCCCCC"
-                  strokeWidth="0.048"
-                ></g>
-                <g id="SVGRepo_iconCarrier">
-                  <title>LeetCode icon</title>
-                  <path d="M16.102 17.93l-2.697 2.607c-.466.467-1.111.662-1.823.662s-1.357-.195-1.824-.662l-4.332-4.363c-.467-.467-.702-1.15-.702-1.863s.235-1.357.702-1.824l4.319-4.38c.467-.467 1.125-.645 1.837-.645s1.357.195 1.823.662l2.697 2.606c.514.515 1.365.497 1.9-.038.535-.536.553-1.387.039-1.901l-2.609-2.636a5.055 5.055 0 0 0-2.445-1.337l2.467-2.503c.516-.514.498-1.366-.037-1.901-.535-.535-1.387-.552-1.902-.038l-10.1 10.101c-.981.982-1.494 2.337-1.494 3.835 0 1.498.513 2.895 1.494 3.875l4.347 4.361c.981.979 2.337 1.452 3.834 1.452s2.853-.512 3.835-1.494l2.609-2.637c.514-.514.496-1.365-.039-1.9s-1.386-.553-1.899-.039zM20.811 13.01H10.666c-.702 0-1.27.604-1.27 1.346s.568 1.346 1.27 1.346h10.145c.701 0 1.27-.604 1.27-1.346s-.569-1.346-1.27-1.346z"></path>
-                </g>
-              </svg>
-              {/* <img alt="leetcode-icon" src="/leetcode.png" /> */}
-              {/* Leetcode */}
-            </a>
+            </div>
           </div>
         </div>
       </div>
@@ -99,8 +103,8 @@ export default async function AboutMe() {
           {me.experience.map((exp, index) => (
             <div key={index} className="mb-8 relative">
               <div className="bg-gray-200 p-4 rounded-lg shadow-md">
-                <div className="flex justify-between items-center">
-                  <div className=" flex gap-3">
+                <div className="flex flex-wrap justify-between items-center gap-2 sm:gap-4">
+                  <div className="flex items-center gap-3">
                     <div className="bg-black p-2 rounded-full">
                       <Briefcase className="h-4 w-4 text-white" />
                     </div>
@@ -108,12 +112,12 @@ export default async function AboutMe() {
                       {exp.at}
                     </h3>
                   </div>
-                  <span className="text-gray-700 text-xs sm:text-sm">
+                  <span className="text-gray-700 text-xs sm:text-sm w-full sm:w-auto text-right sm:text-left">
                     {exp.duration}
                   </span>
                 </div>
 
-                <ul className="text-gray-700 list-disc pl-5 mt-2 space-y-1">
+                <ul className="text-gray-700 list-disc pl-5 mt-2 space-y-1 text-sm md:text-base ">
                   {exp.description
                     .split(">")
                     .filter((itm) => itm.trim() !== "")

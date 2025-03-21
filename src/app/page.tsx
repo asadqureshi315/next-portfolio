@@ -154,8 +154,8 @@ export default function Home() {
       </div>
       <div className="absolute right-0 bottom-0 md:right-5 md:bottom-5">
         <div
-          className=" w-16 h-16 md:w-24 md:h-24 mt-5 hover:cursor-pointer"
-          onClick={() => setIsOpen(!isOpen)} // Toggle visibility on click
+          className=" w-16 h-16 md:w-24 md:h-24 mt-5"
+          // onClick={() => setIsOpen(!isOpen)} // Toggle visibility on click
         >
           <LocateFixed
             className={`w-full h-full stroke-white stroke-1 transition-transform duration-500 cursor-pointer ${
