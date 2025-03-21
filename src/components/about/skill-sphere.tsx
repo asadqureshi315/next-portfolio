@@ -63,7 +63,12 @@ const SphericalText: React.FC<SphericalTextProps> = ({ skills }) => {
       <OrbitControls enableZoom={false} />
       <RotatingGroup>
         {skills.map((text, i) => (
-          <Text key={i} position={positions[i]} fontSize={1} color="white">
+          <Text
+            key={i}
+            position={positions[i]}
+            fontSize={0.1 * radius}
+            color="white"
+          >
             {text}
           </Text>
         ))}

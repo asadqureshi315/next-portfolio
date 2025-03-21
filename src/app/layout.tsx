@@ -19,8 +19,9 @@ const geistMono = Geist_Mono({
 const tinos = Tinos({ weight: "400", subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Portfolio",
-  description: "Asad Qureshi's Portfolio",
+  title: "Full-Stack Engineer | Web & DevOps Enthusiast | Asad Qureshi",
+  description:
+    "Full-Stack Engineer with expertise in modern web development and a strong foundation in DevOps. Passionate about building scalable applications, automating workflows, and optimizing cloud infrastructure. Bridging the gap between development and operations for seamless deployments.",
 };
 
 export default function RootLayout({

@@ -58,7 +58,10 @@ export default function ContactForm() {
             <p className="text-muted-foreground">
               We'll get back to you as soon as possible.
             </p>
-            <Button onClick={() => setIsSubmitted(false)} className="mt-4">
+            <Button
+              onClick={() => setIsSubmitted(false)}
+              className="mt-4 cursor-pointer"
+            >
               Send another message
             </Button>
           </div>

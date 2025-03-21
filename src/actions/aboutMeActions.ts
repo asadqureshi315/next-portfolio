@@ -2,6 +2,7 @@
 import { About } from "@/models/About.model";
 import { connectToDatabase } from "@/lib/connectDB";
 import nodemailer from "nodemailer";
+import { cookies } from "next/headers";
 
 export async function updateMe(form: AboutMe) {
   await connectToDatabase();
@@ -37,6 +38,8 @@ export async function updateMe(form: AboutMe) {
 }
 
 export async function getAboutMe() {
+  const _cookies = cookies();
+
   await connectToDatabase();
   const me = await About.findById("67d47621f621d6592e4c6fd7");
   return JSON.stringify(me);

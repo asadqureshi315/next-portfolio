@@ -21,7 +21,7 @@ export default function Signature() {
   }, []);
 
   return (
-    <div className=" my-auto">
+    <div className=" my-auto md:my-2">
       <svg
         width="100"
         height="100"
