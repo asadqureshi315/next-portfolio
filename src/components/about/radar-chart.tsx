@@ -11,24 +11,6 @@ import {
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ChartContainer, ChartTooltip } from "@/components/ui/chart";
 
-const MultiLineTick = ({ x, y, payload }: { x: any; y: any; payload: any }) => {
-  // Manually split long labels into multiple lines
-  const words = payload.value.split(" "); // Split by spaces
-  const line1 = words.slice(0, Math.ceil(words.length / 2)).join(" ");
-  const line2 = words.slice(Math.ceil(words.length / 2)).join(" ");
-
-  return (
-    <text x={x} y={y} textAnchor="middle" fill="white">
-      <tspan x={x} dy="-5">
-        {line1}
-      </tspan>
-      <tspan x={x} dy="15">
-        {line2}
-      </tspan>
-    </text>
-  );
-};
-
 export default function SwitchableRadarChart({
   fullstack,
   devops,
@@ -99,7 +81,7 @@ export default function SwitchableRadarChart({
                 dataKey="value"
                 fill="teal"
                 fillOpacity={0.6}
-                stroke="var(--color-fullstack)"
+                stroke="teal"
                 strokeWidth={2}
               />
             </RadarChart>

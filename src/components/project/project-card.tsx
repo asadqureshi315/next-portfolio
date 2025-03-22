@@ -31,20 +31,25 @@ const ProjectCard = forwardRef<HTMLDivElement, ProjectCardProps>(
           </div>
           <div className="project-content">
             <div className="project-header">
-              <div className="project-icon">
+              <div className="project-icon h-10 w-10 md:h-12 md:w-12">
                 <DynamicIcon
                   name={project.icon as keyof typeof dynamicIconImports}
-                  className=" w-8 h-8 "
+                  className=" h-6 w-6 md:w-8 md:h-8 "
                 />
               </div>
-              <h3 className="project-title text-gray-900">{project.name}</h3>
+              <h3 className="project-title text-gray-900 text-lg md:text-3xl">
+                {project.name}
+              </h3>
             </div>
             <p className="project-description truncate w-[ch_200] text-gray-900 text-sm md:text-lg">
               {project.description.slice(1)}
             </p>
-            <div className="project-techStack">
+            <div className="project-techStack text-sm md:text-lg">
               {project.techStack.split(",").map((tech, index) => (
-                <span key={index} className="project-tech-tag">
+                <span
+                  key={index}
+                  className="project-tech-tag text-xs md:text-base"
+                >
                   {tech}
                 </span>
               ))}
@@ -149,14 +154,11 @@ const ProjectCard = forwardRef<HTMLDivElement, ProjectCardProps>(
             display: flex;
             align-items: center;
             justify-content: center;
-            width: 64px;
-            height: 64px;
             border-radius: 12px;
             background: rgba(0, 0, 0, 1);
           }
 
           .project-title {
-            font-size: 28px;
             font-weight: 700;
             margin: 0;
           }
@@ -168,7 +170,7 @@ const ProjectCard = forwardRef<HTMLDivElement, ProjectCardProps>(
 
           .project-techStack {
             display: flex;
-            flex-wrap: wrap;
+            flex-wrap: wra p;
             gap: 8px;
             margin-bottom: 10px;
           }
@@ -178,7 +180,6 @@ const ProjectCard = forwardRef<HTMLDivElement, ProjectCardProps>(
             color: var(--hue-6);
             padding: 6px 12px;
             border-radius: 20px;
-            font-size: 14px;
             font-weight: 500;
           }
 
@@ -222,10 +223,6 @@ const ProjectCard = forwardRef<HTMLDivElement, ProjectCardProps>(
             .project-image-container {
               height: 250px;
             }
-
-            .project-title {
-              font-size: 24px;
-            }
           }
 
           @media (max-width: 576px) {
@@ -234,21 +231,16 @@ const ProjectCard = forwardRef<HTMLDivElement, ProjectCardProps>(
             }
 
             .project-content {
-              padding: 20px;
-            }
-
-            .project-icon {
-              width: 48px;
-              height: 48px;
+              padding: 10px;
+              gap: 10px;
             }
 
             .project-techStack {
-              margin-bottom: 15px;
+              margin-bottom: 5px;
             }
 
             .project-tech-tag {
               padding: 4px 8px;
-              font-size: 12px;
             }
 
             .project-action-link {

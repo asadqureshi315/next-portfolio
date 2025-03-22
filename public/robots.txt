@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://asadqureshi.tech
+
+# Sitemaps
+Sitemap: https://asadqureshi.tech/sitemap.xml

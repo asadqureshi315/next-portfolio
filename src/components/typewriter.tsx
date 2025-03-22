@@ -1,3 +1,4 @@
+"use client";
 import { motion } from "framer-motion";
 import { Merriweather } from "next/font/google";
 import { useState, useEffect } from "react";
@@ -13,8 +14,8 @@ interface TypewriterProps {
 
 export default function Typewriter({
   texts,
-  typingSpeed = 7,
-  deletingSpeed = 5,
+  typingSpeed = 20,
+  deletingSpeed = 15,
   pause = 2000,
 }: TypewriterProps) {
   const [index, setIndex] = useState(0); // Tracks which text is displayed

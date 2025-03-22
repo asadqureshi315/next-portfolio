@@ -31,7 +31,7 @@ export default async function AboutMe() {
           </p>
 
           {/* Description */}
-          <div className="text-gray-400 list-disc pl-4 sm:pl-3 lg:pl-2 space-y-2">
+          <div className="text-gray-400 list-disc pl-4 sm:pl-3 lg:pl-2 space-y-2 text-sm sm:text-base">
             {me.description
               .split(">")
               .filter((txt) => txt.trim() !== "")
