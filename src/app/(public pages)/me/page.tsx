@@ -1,3 +1,4 @@
+"use client";
 import { getAboutMe } from "@/actions/aboutMeActions";
 import SphericalText from "@/components/about/skill-sphere";
 
@@ -7,9 +8,52 @@ import BackButton from "@/components/project/back-button";
 import { ArrowLeft, Briefcase, Github, Linkedin, Mail } from "lucide-react";
 import ContactForm from "@/components/about/query-form";
 import Image from "next/image";
+import { useEffect, useState } from "react";
 
-export default async function AboutMe() {
-  const me: AboutMe = await JSON.parse(await getAboutMe());
+export default function AboutMe() {
+  // const me: AboutMe = await JSON.parse(await getAboutMe());
+  // const skills = me.techNodes.nodes.map((itm) => {
+  //   return itm.id;
+  // });
+
+  const [me, setMe] = useState<AboutMe>({
+    _id: "",
+    title: "",
+    subTitle: "",
+    description: "",
+    email: "",
+    linkedIn: "",
+    github: "",
+    leetcode: "",
+    resume: "",
+    radar: {
+      fullstack: [],
+      devops: [],
+    },
+    techNodes: { nodes: [], links: [] },
+    experience: [],
+  });
+
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    async function fetchme() {
+      try {
+        const response = await fetch("/api/me", { method: "GET" });
+        if (!response.ok) {
+          throw new Error("Failed to fetch me");
+        }
+        const data = await response.json();
+        setMe(data.me);
+      } catch (error) {
+        console.error("Error fetching me:", error);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    fetchme();
+  }, []);
   const skills = me.techNodes.nodes.map((itm) => {
     return itm.id;
   });
@@ -99,10 +143,10 @@ export default async function AboutMe() {
       <div className="max-w-4xl mx-auto p-6 hover:shadow-2xl">
         <h2 className="text-2xl font-bold mb-6 text-white">Experience</h2>
 
-        <div className="relative border-l border-gray-700 pl-6">
+        <div className="relative lg:border-l lg:border-gray-700 lg:pl-6">
           {me.experience.map((exp, index) => (
             <div key={index} className="mb-8 relative">
-              <div className="bg-gray-200 p-4 rounded-lg shadow-md">
+              <div className="bg-gray-200 p-1 lg:p-4 rounded-lg shadow-md">
                 <div className="flex flex-wrap justify-between items-center gap-2 sm:gap-4">
                   <div className="flex items-center gap-3">
                     <div className="bg-black p-2 rounded-full">

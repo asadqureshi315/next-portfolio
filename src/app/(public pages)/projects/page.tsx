@@ -40,7 +40,11 @@ export default function ProjectsPage() {
         </div>
       </header>
 
-      <Suspense fallback={<div className="loading">Loading projects...</div>}>
+      <Suspense
+        fallback={
+          <div className="loading text-white text-xl">Loading projects...</div>
+        }
+      >
         <ProjectsParallaxClient projects={projects} />
       </Suspense>
 

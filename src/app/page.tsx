@@ -9,7 +9,7 @@ const playFair = Merriweather({ weight: "400", subsets: ["latin"] });
 
 export default function Home() {
   return (
-    <div className=" w-full h-full overflow-hidden">
+    <div className=" w-full h-full">
       <StarField />
       <div className=" absolute top-28 left-5 md:top-36 md:left-10 lg:top-36 lg:left-16  mix-blend-difference">
         <h1
