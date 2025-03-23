@@ -38,8 +38,6 @@ export async function updateMe(form: AboutMe) {
 }
 
 export async function getAboutMe() {
-  const _cookies = cookies();
-
   await connectToDatabase();
   const me = await About.findById("67d47621f621d6592e4c6fd7");
   return JSON.stringify(me);

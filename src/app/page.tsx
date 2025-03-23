@@ -33,20 +33,20 @@ export default function Home() {
           <div
             className={`absolute inset-0 flex items-center justify-centerm ${playFair.className}`}
           >
-            <Link
+            <a
               href="/projects"
               className={`absolute text-white text-sm md:text-lg transition-opacity duration-500 opacity-100`}
               style={{ transform: "translate(0%, -180%)" }}
             >
               PROJECTS
-            </Link>
-            <Link
+            </a>
+            <a
               href="/me"
               className={`absolute text-white text-sm md:text-lg transition-opacity duration-500 opacity-100`}
               style={{ transform: "translate(-100%, 30%)" }}
             >
               ME
-            </Link>
+            </a>
           </div>
         </div>
       </div>

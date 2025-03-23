@@ -40,7 +40,7 @@ export default function StarField() {
 
     // Use InstancedMesh to render 50,000 stars efficiently
     const numStars = 50000;
-    const geometry = new THREE.SphereGeometry(0.2, 16, 16);
+    const geometry = new THREE.SphereGeometry(0.3, 16, 16);
     const material = new THREE.MeshBasicMaterial({ color: 0xffffff });
     const stars = new THREE.InstancedMesh(geometry, material, numStars);
 
@@ -60,13 +60,24 @@ export default function StarField() {
     const currentRotation = new THREE.Vector2();
 
     let lastTime = 0;
-    const animate = (time = 0) => {
-      requestAnimationFrame(animate);
-      const delta = time - lastTime;
-      if (delta < 16) return; // Limit to ~60 FPS
-      lastTime = time;
+    // const animate = (time = 0) => {
+    //   requestAnimationFrame(animate);
+    //   const delta = time - lastTime;
+    //   if (delta < 16) return; // Limit to ~60 FPS
+    //   lastTime = time;
 
-      currentRotation.lerp(targetRotation, 0.1);
+    //   currentRotation.lerp(targetRotation, 0.1);
+    //   stars.rotation.x = currentRotation.y;
+    //   stars.rotation.y = currentRotation.x;
+
+    //   renderer.render(scene, camera);
+    // };
+
+    const animate = () => {
+      requestAnimationFrame(animate);
+
+      currentRotation.lerp(targetRotation, 1);
+
       stars.rotation.x = currentRotation.y;
       stars.rotation.y = currentRotation.x;
 

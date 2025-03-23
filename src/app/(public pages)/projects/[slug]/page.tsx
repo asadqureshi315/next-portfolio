@@ -33,6 +33,7 @@ export default async function ProjectDetailPage({
     <div className="container !px-5 py-12 mx-auto">
       <Link
         href="/projects"
+        prefetch={false}
         className="inline-flex items-center mb-6 text-sm hover:text-primary transition-colors"
       >
         <ChevronLeft className="mr-1 h-4 w-4" />
