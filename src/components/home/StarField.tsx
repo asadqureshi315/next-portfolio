@@ -60,29 +60,29 @@ export default function StarField() {
     const currentRotation = new THREE.Vector2();
 
     let lastTime = 0;
-    // const animate = (time = 0) => {
-    //   requestAnimationFrame(animate);
-    //   const delta = time - lastTime;
-    //   if (delta < 16) return; // Limit to ~60 FPS
-    //   lastTime = time;
-
-    //   currentRotation.lerp(targetRotation, 0.1);
-    //   stars.rotation.x = currentRotation.y;
-    //   stars.rotation.y = currentRotation.x;
-
-    //   renderer.render(scene, camera);
-    // };
-
-    const animate = () => {
+    const animate = (time = 0) => {
       requestAnimationFrame(animate);
+      const delta = time - lastTime;
+      if (delta < 16) return; // Limit to ~60 FPS
+      lastTime = time;
 
-      currentRotation.lerp(targetRotation, 1);
-
+      currentRotation.lerp(targetRotation, 0.1);
       stars.rotation.x = currentRotation.y;
       stars.rotation.y = currentRotation.x;
 
       renderer.render(scene, camera);
     };
+
+    // const animate = () => {
+    //   requestAnimationFrame(animate);
+
+    //   currentRotation.lerp(targetRotation, 1);
+
+    //   stars.rotation.x = currentRotation.y;
+    //   stars.rotation.y = currentRotation.x;
+
+    //   renderer.render(scene, camera);
+    // };
     animate();
 
     // Handle resizing efficiently
