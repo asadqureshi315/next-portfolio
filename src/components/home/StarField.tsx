@@ -38,9 +38,13 @@ export default function StarField() {
 
     const scene = new THREE.Scene();
 
+    // Detect mobile screen size
+    const isMobile = window.innerWidth < 768; // Adjust breakpoint if needed
+    const numStars = isMobile ? 10000 : 25000;
+    const starSize = isMobile ? 1 : 0.5;
+
     // Use InstancedMesh to render 50,000 stars efficiently
-    const numStars = 50000;
-    const geometry = new THREE.SphereGeometry(0.3, 16, 16);
+    const geometry = new THREE.SphereGeometry(starSize, 16, 16);
     const material = new THREE.MeshBasicMaterial({ color: 0xffffff });
     const stars = new THREE.InstancedMesh(geometry, material, numStars);
 
