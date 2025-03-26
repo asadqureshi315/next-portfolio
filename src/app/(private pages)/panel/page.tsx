@@ -32,6 +32,7 @@ import Image from "next/image";
 import Panel_Project_Tab from "@/components/panel-projects-list";
 import About_Panel_Tab from "@/components/panel-about-tab";
 import { updateMe, getAboutMe } from "@/actions/aboutMeActions";
+import Head from "next/head";
 
 export default function Dashboard() {
   const [aboutMe, setAboutMe] = useState<AboutMe>({
@@ -262,183 +263,188 @@ export default function Dashboard() {
   }, []);
 
   return (
-    <div className="  mx-10 py-6 space-y-8">
-      <header className="space-y-2">
-        <h1 className="text-3xl font-bold tracking-tight">
-          Portfolio Dashboard
-        </h1>
-        <p className="text-muted-foreground">
-          Manage your profile and projects in one place.
-        </p>
-      </header>
+    <>
+      <Head>
+        <meta name="robots" content="noindex, nofollow" />
+      </Head>
+      <div className="  mx-10 py-6 space-y-8">
+        <header className="space-y-2">
+          <h1 className="text-3xl font-bold tracking-tight">
+            Portfolio Dashboard
+          </h1>
+          <p className="text-muted-foreground">
+            Manage your profile and projects in one place.
+          </p>
+        </header>
 
-      <Tabs defaultValue="about" className="space-y-6">
-        <TabsList>
-          <TabsTrigger value="about">About Me</TabsTrigger>
-          <TabsTrigger value="projects">Projects</TabsTrigger>
-        </TabsList>
+        <Tabs defaultValue="about" className="space-y-6">
+          <TabsList>
+            <TabsTrigger value="about">About Me</TabsTrigger>
+            <TabsTrigger value="projects">Projects</TabsTrigger>
+          </TabsList>
 
-        <About_Panel_Tab
-          handleAboutMeChange={handleAboutMeChange}
-          aboutMe={aboutMe}
-          setAboutMe={setAboutMe}
-          saveMe={handleSaveMe}
-        />
+          <About_Panel_Tab
+            handleAboutMeChange={handleAboutMeChange}
+            aboutMe={aboutMe}
+            setAboutMe={setAboutMe}
+            saveMe={handleSaveMe}
+          />
 
-        <Panel_Project_Tab
-          handleAddProject={handleAddProject}
-          handleEditProject={handleEditProject}
-          handleDeleteProject={handleDeleteProject}
-          projects={projects}
-        />
-      </Tabs>
+          <Panel_Project_Tab
+            handleAddProject={handleAddProject}
+            handleEditProject={handleEditProject}
+            handleDeleteProject={handleDeleteProject}
+            projects={projects}
+          />
+        </Tabs>
 
-      <Dialog
-        open={isDialogOpen}
-        onOpenChange={(e) => {
-          setPreviewImages([{ fileName: "", url: "" }]);
-          setIsDialogOpen;
-        }}
-      >
-        <DialogContent className="sm:max-w-[500px]  max-h-[500px] overflow-scroll">
-          <DialogHeader>
-            <DialogTitle>
-              {currentProject ? "Edit Project" : "Add New Project"}
-            </DialogTitle>
-            <DialogDescription>
-              {currentProject
-                ? "Update the details of your existing project."
-                : "Fill in the details to add a new project to your portfolio."}
-            </DialogDescription>
-          </DialogHeader>
-          <div className="grid gap-4 py-4">
-            <div className="space-y-2">
-              <Label htmlFor="name">Project Name</Label>
-              <Input
-                id="name"
-                name="name"
-                value={formData.name}
-                onChange={handleProjectChange}
-                placeholder="Enter project name"
-              />
+        <Dialog
+          open={isDialogOpen}
+          onOpenChange={(e) => {
+            setPreviewImages([{ fileName: "", url: "" }]);
+            setIsDialogOpen;
+          }}
+        >
+          <DialogContent className="sm:max-w-[500px]  max-h-[500px] overflow-scroll">
+            <DialogHeader>
+              <DialogTitle>
+                {currentProject ? "Edit Project" : "Add New Project"}
+              </DialogTitle>
+              <DialogDescription>
+                {currentProject
+                  ? "Update the details of your existing project."
+                  : "Fill in the details to add a new project to your portfolio."}
+              </DialogDescription>
+            </DialogHeader>
+            <div className="grid gap-4 py-4">
+              <div className="space-y-2">
+                <Label htmlFor="name">Project Name</Label>
+                <Input
+                  id="name"
+                  name="name"
+                  value={formData.name}
+                  onChange={handleProjectChange}
+                  placeholder="Enter project name"
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="name">Slug</Label>
+                <Input
+                  id="slug"
+                  name="slug"
+                  value={formData.slug}
+                  onChange={handleProjectChange}
+                  placeholder="Enter project slug"
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="name">At</Label>
+                <Input
+                  id="at"
+                  name="at"
+                  value={formData.at}
+                  onChange={handleProjectChange}
+                  placeholder="Where you worked on project"
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="description">Description</Label>
+                <Textarea
+                  id="description"
+                  name="description"
+                  value={formData.description}
+                  onChange={handleProjectChange}
+                  placeholder="Describe your project"
+                  className="min-h-[80px]"
+                  rows={8}
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="techStack">Tech Stack</Label>
+                <Input
+                  id="techStack"
+                  name="techStack"
+                  value={formData.techStack}
+                  onChange={handleProjectChange}
+                  placeholder="e.g. React, Node.js, MongoDB"
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="duration">Duration</Label>
+                <Input
+                  id="duration"
+                  name="duration"
+                  value={formData.duration}
+                  onChange={handleProjectChange}
+                  placeholder="e.g. 2 weeks, 3 months"
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="github">Github Link</Label>
+                <Input
+                  id="github"
+                  name="github"
+                  value={formData.github}
+                  onChange={handleProjectChange}
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="live">Live Link</Label>
+                <Input
+                  id="live"
+                  name="live"
+                  value={formData.live}
+                  onChange={handleProjectChange}
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="Icon">Icon</Label>
+                <Input
+                  id="icon"
+                  name="icon"
+                  value={formData.icon}
+                  onChange={handleProjectChange}
+                  placeholder="icon name from lucide"
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="duration">Photos</Label>
+                <Input
+                  id="file"
+                  name="file"
+                  onChange={handleImageUpload}
+                  type="file"
+                  max={1}
+                />
+              </div>
+              <div className=" grid grid-cols-3">
+                {previewImages.map((itm, index) => (
+                  <div className="" key={index}>
+                    <XIcon
+                      className=" absolute bg-red cursor-pointer"
+                      onClick={(e) => handleDeleteImage(itm)}
+                    />
+                    <Image
+                      width={100}
+                      height={100}
+                      src={itm.url}
+                      alt="project preview images"
+                      unoptimized
+                    />
+                  </div>
+                ))}
+              </div>
             </div>
-            <div className="space-y-2">
-              <Label htmlFor="name">Slug</Label>
-              <Input
-                id="slug"
-                name="slug"
-                value={formData.slug}
-                onChange={handleProjectChange}
-                placeholder="Enter project slug"
-              />
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="name">At</Label>
-              <Input
-                id="at"
-                name="at"
-                value={formData.at}
-                onChange={handleProjectChange}
-                placeholder="Where you worked on project"
-              />
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="description">Description</Label>
-              <Textarea
-                id="description"
-                name="description"
-                value={formData.description}
-                onChange={handleProjectChange}
-                placeholder="Describe your project"
-                className="min-h-[80px]"
-                rows={8}
-              />
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="techStack">Tech Stack</Label>
-              <Input
-                id="techStack"
-                name="techStack"
-                value={formData.techStack}
-                onChange={handleProjectChange}
-                placeholder="e.g. React, Node.js, MongoDB"
-              />
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="duration">Duration</Label>
-              <Input
-                id="duration"
-                name="duration"
-                value={formData.duration}
-                onChange={handleProjectChange}
-                placeholder="e.g. 2 weeks, 3 months"
-              />
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="github">Github Link</Label>
-              <Input
-                id="github"
-                name="github"
-                value={formData.github}
-                onChange={handleProjectChange}
-              />
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="live">Live Link</Label>
-              <Input
-                id="live"
-                name="live"
-                value={formData.live}
-                onChange={handleProjectChange}
-              />
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="Icon">Icon</Label>
-              <Input
-                id="icon"
-                name="icon"
-                value={formData.icon}
-                onChange={handleProjectChange}
-                placeholder="icon name from lucide"
-              />
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="duration">Photos</Label>
-              <Input
-                id="file"
-                name="file"
-                onChange={handleImageUpload}
-                type="file"
-                max={1}
-              />
-            </div>
-            <div className=" grid grid-cols-3">
-              {previewImages.map((itm, index) => (
-                <div className="" key={index}>
-                  <XIcon
-                    className=" absolute bg-red cursor-pointer"
-                    onClick={(e) => handleDeleteImage(itm)}
-                  />
-                  <Image
-                    width={100}
-                    height={100}
-                    src={itm.url}
-                    alt="project preview images"
-                    unoptimized
-                  />
-                </div>
-              ))}
-            </div>
-          </div>
-          <DialogFooter>
-            <Button variant="outline" onClick={() => setIsDialogOpen(false)}>
-              Cancel
-            </Button>
-            <Button onClick={handleSaveProject}>Save</Button>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
-    </div>
+            <DialogFooter>
+              <Button variant="outline" onClick={() => setIsDialogOpen(false)}>
+                Cancel
+              </Button>
+              <Button onClick={handleSaveProject}>Save</Button>
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
+      </div>
+    </>
   );
 }
 
