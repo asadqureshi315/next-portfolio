@@ -138,7 +138,7 @@ const ProjectCard = forwardRef<HTMLDivElement, ProjectCardProps>(
           }
 
           .project-content {
-            padding: 30px;
+            padding: 20px;
             display: flex;
             flex-direction: column;
             gap: 20px;
@@ -172,7 +172,7 @@ const ProjectCard = forwardRef<HTMLDivElement, ProjectCardProps>(
             display: flex;
             flex-wrap: wra p;
             gap: 8px;
-            margin-bottom: 10px;
+            margin-bottom: 5px;
           }
 
           .project-tech-tag {
