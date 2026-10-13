@@ -3,6 +3,7 @@ import { About } from "@/models/About.model";
 import { connectToDatabase } from "@/lib/connectDB";
 import nodemailer from "nodemailer";
 import { cookies } from "next/headers";
+import { revalidatePath } from "next/cache";
 
 export async function updateMe(form: AboutMe) {
   await connectToDatabase();
@@ -34,6 +35,7 @@ export async function updateMe(form: AboutMe) {
     leetcode,
     radar,
   });
+  revalidatePath("/me");
   return JSON.stringify(updatedMe);
 }
 
